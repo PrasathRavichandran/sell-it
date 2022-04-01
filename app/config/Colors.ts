@@ -3,4 +3,5 @@ export const Colors = {
   peas: "#1abc9c",
   black: "#000",
   white: "#fff",
+  cream: "#f8f4f4",
 };

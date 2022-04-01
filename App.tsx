@@ -10,7 +10,7 @@ export default function App() {
     <>
       <StatusBar style="auto" />
       {/* <InitScreen /> */}
-      <ViewProductScreen />
+      {/* <ViewProductScreen /> */}
       {/* <ListingDetailsScreen /> */}
     </>
   );

@@ -6,6 +6,7 @@ import {
   View,
 } from "react-native";
 import React from "react";
+import Icons from "@expo/vector-icons/MaterialCommunityIcons";
 import { Colors } from "../config/Colors";
 
 const ViewProductScreen = () => {
@@ -13,10 +14,12 @@ const ViewProductScreen = () => {
     <SafeAreaView style={styles.conatiner}>
       <View style={styles.viewProductContainer}>
         <View style={styles.iconView}>
-          <TouchableOpacity style={styles.iconContainer}></TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.iconContainer, { backgroundColor: Colors.peas }]}
-          ></TouchableOpacity>
+          <TouchableOpacity style={styles.iconContainer}>
+            <Icons name="close" color={Colors.white} size={36} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.iconContainer}>
+            <Icons name="trash-can-outline" color={Colors.white} size={36} />
+          </TouchableOpacity>
         </View>
         <View style={styles.imageContainer}>
           <Image
@@ -47,9 +50,10 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
   iconContainer: {
-    width: 60,
-    height: 60,
-    backgroundColor: Colors.tomato,
+    width: 40,
+    height: 40,
+    justifyContent: "center",
+    alignItems: "center",
   },
   imageContainer: {
     flex: 1,

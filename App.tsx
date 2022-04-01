@@ -2,6 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import Card from "./app/components/Card";
 
 import InitScreen from "./app/screens/InitScreen";
+import ListingDetailsScreen from "./app/screens/ListingDetailsScreen";
 import ViewProductScreen from "./app/screens/ViewProductScreen";
 
 export default function App() {
@@ -10,6 +11,7 @@ export default function App() {
       <StatusBar style="auto" />
       {/* <InitScreen /> */}
       {/* <ViewProductScreen /> */}
+      <ListingDetailsScreen />
     </>
   );
 }

@@ -1,14 +1,8 @@
-import {
-  Image,
-  ImageBackground,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
 import React from "react";
+import { ImageBackground, StyleSheet, View } from "react-native";
+
 import { Colors } from "../config/Colors";
-import Button from "../components/Button";
+import { Button, Image, Text } from "../components";
 
 const InitScreen = () => {
   return (

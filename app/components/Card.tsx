@@ -1,12 +1,8 @@
-import {
-  Image,
-  ImageSourcePropType,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { ImageSourcePropType, StyleSheet, View } from "react-native";
 import React from "react";
+
 import { Colors } from "../config/Colors";
+import { Text, Image } from "./index";
 
 type buttonProps = {
   title: string;

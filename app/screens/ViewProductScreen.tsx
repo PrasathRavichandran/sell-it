@@ -1,13 +1,9 @@
-import {
-  Image,
-  SafeAreaView,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from "react-native";
 import React from "react";
+import { SafeAreaView, StyleSheet, View } from "react-native";
 import Icons from "@expo/vector-icons/MaterialCommunityIcons";
+
 import { Colors } from "../config/Colors";
+import { Image, TouchableOpacity } from "../components";
 
 const ViewProductScreen = () => {
   return (

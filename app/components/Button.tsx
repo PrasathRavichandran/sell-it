@@ -1,6 +1,8 @@
-import { Text, TouchableOpacity, StyleSheet } from "react-native";
 import React from "react";
+import { StyleSheet } from "react-native";
+
 import { Colors } from "../config/Colors";
+import { Text, TouchableOpacity } from "../components";
 
 type buttonProps = {
   backgroundColor: string;

@@ -1,6 +1,5 @@
 import { SafeAreaView, StyleSheet, View } from "react-native";
 import React from "react";
-import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 
 import { Colors } from "../config/Colors";
 import { Image, ListItem, Text } from "../components";

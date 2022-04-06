@@ -4,8 +4,10 @@ import Card from "./app/components/Card";
 import { Colors } from "./app/config/Colors";
 
 import InitScreen from "./app/screens/InitScreen";
+import ListEditScreen from "./app/screens/ListEditScreen";
 import ListingDetailsScreen from "./app/screens/ListingDetailsScreen";
 import MyAccountScreen from "./app/screens/MyAccountScreen";
+import RegisterScreen from "./app/screens/RegisterScreen";
 import ViewProductScreen from "./app/screens/ViewProductScreen";
 
 export default function App() {
@@ -15,7 +17,9 @@ export default function App() {
       {/* <InitScreen /> */}
       {/* <ViewProductScreen /> */}
       {/* <ListingDetailsScreen /> */}
-      <MyAccountScreen />
+      {/* <MyAccountScreen /> */}
+      {/* <RegisterScreen /> */}
+      <ListEditScreen />
     </View>
   );
 }

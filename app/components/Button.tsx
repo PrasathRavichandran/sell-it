@@ -2,7 +2,8 @@ import React from "react";
 import { StyleSheet } from "react-native";
 
 import { Colors } from "../config/Colors";
-import { Text, TouchableOpacity } from "../components";
+import Text from "./Text";
+import TouchableOpacity from "./TouchableOpacity";
 
 type buttonProps = {
   backgroundColor: string;
@@ -29,7 +30,7 @@ export default Button;
 const styles = StyleSheet.create({
   button: {
     width: "100%",
-    height: 60,
+    height: 50,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 30,

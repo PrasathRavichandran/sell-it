@@ -9,6 +9,7 @@ import ListingDetailsScreen from "./app/screens/ListingDetailsScreen";
 import MyAccountScreen from "./app/screens/MyAccountScreen";
 import RegisterScreen from "./app/screens/RegisterScreen";
 import ViewProductScreen from "./app/screens/ViewProductScreen";
+import LoginScreen from "./app/screens/LoginScreen";
 
 export default function App() {
   return (
@@ -19,7 +20,8 @@ export default function App() {
       {/* <ListingDetailsScreen /> */}
       {/* <MyAccountScreen /> */}
       {/* <RegisterScreen /> */}
-      <ListEditScreen />
+      {/*<ListEditScreen />*/}
+        <LoginScreen/>
     </View>
   );
 }

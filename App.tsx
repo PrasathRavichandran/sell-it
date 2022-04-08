@@ -15,10 +15,10 @@ export default function App() {
   return (
     <View style={{ backgroundColor: Colors.cream, flex: 1 }}>
       <StatusBar style="auto" backgroundColor={Colors.cream} />
-      {/* <InitScreen /> */}
-      {/* <ViewProductScreen /> */}
+       {/*<InitScreen />*/}
+       {/*<ViewProductScreen />*/}
       {/* <ListingDetailsScreen /> */}
-      {/* <MyAccountScreen /> */}
+      {/* <MyAccountScreen />*/}
       {/* <RegisterScreen /> */}
       {/*<ListEditScreen />*/}
         <LoginScreen/>

@@ -18,10 +18,10 @@ const MyAccountScreen = () => {
           </View>
           <View style={{ marginTop: 10 }}>
             <Text style={styles.accountHeading} numberOfLines={1}>
-              Mosh hamidani
+              Hero hamidani
             </Text>
             <Text style={styles.accountSubheading} numberOfLines={1}>
-              Programmingwithmosha@gmail.com
+              bighero6programmers@gmail.com
             </Text>
           </View>
         </View>

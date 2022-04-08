@@ -1,12 +1,16 @@
-import { SafeAreaView, StyleSheet, View } from "react-native";
+import {SafeAreaView, StyleProp, StyleSheet, View, ViewStyle} from "react-native";
 import React from "react";
 
 import { Colors } from "../config/Colors";
 
-const FormLayout: React.FC = ({ children }) => {
+type formLayoutProps = {
+  containerStyle?: StyleProp<ViewStyle>
+}
+
+const FormLayout: React.FC<formLayoutProps> = ({ children,containerStyle }) => {
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.innerContainer}>{children}</View>
+      <View style={[styles.innerContainer,containerStyle]}>{children}</View>
     </SafeAreaView>
   );
 };

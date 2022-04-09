@@ -1,11 +1,10 @@
 import React from "react";
 import {StyleSheet} from 'react-native';
-import {Formik, FormikValues} from 'formik';
+import {FormikValues} from 'formik';
 import * as Yup from 'yup';
 
-import FormLayout from "../Layout/FormLayout";
-import {Button, Image, TextInput} from "../components";
-import {Colors} from "../config/Colors";
+import SafeAreaLayout from "../Layout/SafeAreaLayout";
+import {AppForm, Image, SubmitButton, TextInput} from "../components";
 
 const validationSchema = Yup.object().shape({
     email: Yup.string().required().email().label('Email'),
@@ -18,58 +17,31 @@ const LoginScreen = () => {
     }
 
     return (
-        <FormLayout containerStyle={styles.container}>
+        <SafeAreaLayout containerStyle={styles.container}>
             <Image
                 source={require("../images/logo-red.png")}
                 style={styles.logoImage}
             />
-            <Formik initialValues={{
-                email: '',
-                password: ''
-            }} onSubmit={onSubmit} validationSchema={validationSchema}>
-                {({
-                      handleChange,
-                      values,
-                      handleSubmit, setFieldValue,
-                      setFieldTouched,
-                      touched,
-                      errors
-                  }) => (
-                    <>
-                        <TextInput
-                            needIcon
-                            icon={"email"}
-                            placeholder={"Email"}
-                            errorHandler={touched.email || false}
-                            errorMessage={errors.email || ''}
-                            secureTextEntry={false}
-                            onChange={() => setFieldTouched('email')}
-                            onChangeText={handleChange('email')}
-                            value={values.email}
-                            keyboardType={'email-address'}
-                        />
-                        <TextInput
-                            needIcon
-                            icon={"lock"}
-                            placeholder={"Password"}
-                            errorHandler={touched.password || false}
-                            errorMessage={errors.password || ""}
-                            onChange={() => setFieldTouched('password')}
-                            secureTextEntry={true}
-                            onChangeText={handleChange('password')}
-                            value={values.password}
-                            keyboardType={'default'}
-                        />
-                        <Button
-                            backgroundColor={Colors.tomato}
-                            onPress={handleSubmit}
-                        >
-                            Login
-                        </Button>
-                    </>
-                )}
-            </Formik>
-        </FormLayout>
+            <AppForm initialValues={{email: '', password: ''}} onSubmit={onSubmit} validationSchema={validationSchema}>
+                <TextInput
+                    needIcon
+                    icon={"email"}
+                    placeholder={"Email"}
+                    secureTextEntry={false}
+                    name={'email'}
+                    keyboardType={'email-address'}
+                />
+                <TextInput
+                    needIcon
+                    icon={"lock"}
+                    placeholder={"Password"}
+                    secureTextEntry={true}
+                    name={'password'}
+                    keyboardType={'default'}
+                />
+                <SubmitButton title={'Login'}/>
+            </AppForm>
+        </SafeAreaLayout>
     );
 }
 

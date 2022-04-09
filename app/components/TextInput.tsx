@@ -1,25 +1,27 @@
-import {KeyboardType, StyleSheet, TextInput, View} from "react-native";
+import {KeyboardType, StyleSheet, TextInput} from "react-native";
 import React from "react";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
+import {useFormikContext} from "formik";
 
 import {Colors} from "../config/Colors";
 import Text from "./Text";
+import View from './View';
 
 type TextInputProps = {
     needIcon?: boolean;
     icon?: any;
-    multiline?: boolean;
     needSufixIcon?: boolean;
     sufixIcon?: any;
-    placeholder: string;
-    errorHandler: boolean;
-    errorMessage: string;
-    secureTextEntry: boolean;
-    onChangeText: (arg: string) => void;
-    value: string;
-    onChange?: () => void;
-    keyboardType: KeyboardType
+    placeholder?: string;
+    multiline?: boolean;
+    keyboardType?: KeyboardType
+    secureTextEntry?: boolean;
+    name: string;
 };
+
+type FormValue = {
+    [key: string]: any;
+}
 
 const CustomTextInput: React.FC<TextInputProps> = (
     {
@@ -28,16 +30,14 @@ const CustomTextInput: React.FC<TextInputProps> = (
         needSufixIcon = false,
         sufixIcon = "",
         placeholder,
-        errorHandler,
-        errorMessage,
         secureTextEntry,
-        onChangeText,
         multiline = false,
-        value,
-        onChange,
-        keyboardType
+        keyboardType,
+        name
     }
 ) => {
+    const {setFieldTouched, handleChange, values, touched, errors} = useFormikContext<FormValue>();
+
     return (
         <View style={styles.inputContainer}>
             <View style={styles.textInputContainer}>
@@ -46,17 +46,17 @@ const CustomTextInput: React.FC<TextInputProps> = (
                     placeholder={placeholder}
                     style={styles.textInput}
                     secureTextEntry={secureTextEntry}
-                    onChangeText={onChangeText}
-                    onChange={onChange}
+                    onChangeText={handleChange(name)}
+                    onChange={() => setFieldTouched(name)}
                     multiline={multiline}
-                    value={value}
+                    value={values[name]}
                     keyboardType={keyboardType}
                 />
                 {needSufixIcon && (
                     <Icon name={sufixIcon} size={24} color={Colors.medium}/>
                 )}
             </View>
-            {errorHandler && errorMessage !== '' && <Text style={styles.helpText}>{errorMessage}</Text>}
+            {touched[name] && errors[name] !== '' && <Text style={styles.helpText}>{errors[name]}</Text>}
         </View>
     );
 };

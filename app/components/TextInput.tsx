@@ -56,7 +56,7 @@ const CustomTextInput: React.FC<TextInputProps> = (
                     <Icon name={sufixIcon} size={24} color={Colors.medium}/>
                 )}
             </View>
-            {touched[name] && errors[name] !== '' && <Text style={styles.helpText}>{errors[name]}</Text>}
+            {touched[name] && errors[name] ? <Text style={styles.helpText}>{errors[name]}</Text> : null}
         </View>
     );
 };

@@ -17,11 +17,11 @@ export default function App() {
             <StatusBar style="auto" backgroundColor={Colors.cream}/>
             {/*<InitScreen />*/}
             {/*<ViewProductScreen />*/}
-            {/* <ListingDetailsScreen /> */}
+            {/* <ListingDetailsScreen />*/}
             {/* <MyAccountScreen />*/}
-            {/* <RegisterScreen /> */}
-            {/*<ListEditScreen />*/}
-            <LoginScreen/>
+            {/* <RegisterScreen />*/}
+            <ListEditScreen />
+            {/*<LoginScreen/>*/}
         </View>
     );
 }

@@ -2,7 +2,7 @@ import React from "react";
 import {StyleProp, View, ViewStyle} from 'react-native';
 
 type customViewProps = {
-    style: StyleProp<ViewStyle>;
+    style?: StyleProp<ViewStyle>;
 }
 
 const CustomView: React.FC<customViewProps> = ({children, style, ...props}) => {

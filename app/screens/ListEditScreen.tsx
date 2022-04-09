@@ -1,36 +1,44 @@
 import React, {useState} from "react";
-import {FlatList} from "react-native";
 import {FormikValues} from "formik";
+import * as Yup from 'yup';
 
 import SafeAreaLayout from "../Layout/SafeAreaLayout";
 import {
     AppForm,
     ListPicker,
-    ModalPopup, SubmitButton,
-    Text,
+    SubmitButton,
     TextInput,
-    TouchableOpacity,
 } from "../components";
 
-const ListEditScreen = () => {
-    const [showModal, setShowModal] = useState(false);
+const validationSchema = Yup.object().shape({
+    title: Yup.string().required().label('Title'),
+    category: Yup.string().required().label('Category'),
+    description: Yup.string().label('Description'),
+    price: Yup.string().matches(/^\d+\.?\d*$/, 'Must be a number').required().label('Price')
+});
 
+const ListEditScreen = () => {
     const [pickerItem] = useState([
-        {id: "1", item: "Furniture"},
-        {id: "2", item: "shirt"},
+        {id: "1", title: "Furniture", icon: 'table-furniture', color: '#1abc9c'},
+        {id: "2", title: "Cars", icon: 'car', color: '#f1c40f'},
+        {id: "3", title: "Cameras", icon: 'camera', color: '#27ae60'},
+        {id: "4", title: "Games", icon: 'cards', color: '#d35400'},
+        {id: "5", title: "Clothing", icon: 'shoe-heel', color: '#2980b9'},
+        {id: "6", title: "Sports", icon: 'basketball', color: '#c0392b'},
+        {id: "7", title: "Music", icon: 'headphones', color: '#8e44ad'},
+        {id: "8", title: "Books", icon: 'book', color: '#e84393'},
+        {id: "9", title: "Others", icon: 'rectangle-outline', color: '#2c3e50'},
     ]);
 
-    const onClickCategory = () => {
-        setShowModal(!showModal);
-    };
-
     const onSubmit = (values: FormikValues) => {
-        console.log('login screen ', values);
+        console.log('screen ', values);
     }
 
     return (
         <SafeAreaLayout>
-            <AppForm initialValues={{}} onSubmit={onSubmit} validationSchema={{}}>
+            <AppForm initialValues={{title: '', price: '', category: '', description: ''}}
+                     onSubmit={onSubmit}
+                     validationSchema={validationSchema}>
                 <TextInput
                     placeholder={"Title"}
                     secureTextEntry={false}
@@ -44,10 +52,8 @@ const ListEditScreen = () => {
                     keyboardType={'number-pad'}
                 />
                 <ListPicker
-                    placeholder={"Category"}
-                    needSufixIcon
-                    sufixIcon={"chevron-down"}
-                    onPress={onClickCategory}
+                    items={pickerItem}
+                    name={'category'}
                 />
                 <TextInput
                     placeholder={"Description"}
@@ -58,20 +64,6 @@ const ListEditScreen = () => {
                 />
                 <SubmitButton title={'Post'}/>
             </AppForm>
-            <ModalPopup visibility={showModal}>
-                <>
-                    <FlatList
-                        data={pickerItem}
-                        keyExtractor={(item) => item.id}
-                        renderItem={({item}) => (
-                            <Text style={{margin: 20}}>{item.item}</Text>
-                        )}
-                    />
-                    <TouchableOpacity style={{margin: 20}} onPress={onClickCategory}>
-                        <Text>close</Text>
-                    </TouchableOpacity>
-                </>
-            </ModalPopup>
         </SafeAreaLayout>
     );
 };

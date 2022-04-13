@@ -17,6 +17,7 @@ type TextInputProps = {
   keyboardType?: KeyboardType;
   secureTextEntry?: boolean;
   name: string;
+  customInputContainerStyle?: any;
 };
 
 type FormValue = {
@@ -33,13 +34,14 @@ const CustomTextInput: React.FC<TextInputProps> = ({
   multiline = false,
   keyboardType,
   name,
+  customInputContainerStyle,
 }) => {
   const { setFieldTouched, handleChange, values, touched, errors } =
     useFormikContext<FormValue>();
 
   return (
     <View style={styles.inputContainer}>
-      <View style={styles.textInputContainer}>
+      <View style={[styles.textInputContainer, customInputContainerStyle]}>
         {needIcon && <Icon name={icon} size={24} color={Colors.medium} />}
         <TextInput
           placeholder={placeholder}
@@ -68,7 +70,6 @@ const styles = StyleSheet.create({
   textInputContainer: {
     backgroundColor: Colors.cream,
     padding: 14,
-    width: "100%",
     borderRadius: 50,
     flexDirection: "row",
     alignItems: "center",

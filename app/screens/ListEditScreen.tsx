@@ -10,6 +10,7 @@ import {
   TextInput,
   View,
 } from "../components";
+import { AppImagePicker } from "../components";
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required().label("Title"),
@@ -19,6 +20,7 @@ const validationSchema = Yup.object().shape({
     .matches(/^\d+\.?\d*$/, "Must be a number")
     .required()
     .label("Price"),
+  imageItem: Yup.array().required().min(1).label("Product Image"),
 });
 
 const ListEditScreen = () => {
@@ -41,25 +43,36 @@ const ListEditScreen = () => {
   return (
     <SafeAreaLayout containerStyle={{ margin: 0 }}>
       <AppForm
-        initialValues={{ title: "", price: "", category: "", description: "" }}
+        initialValues={{
+          title: "",
+          price: "",
+          category: "",
+          description: "",
+          imageItem: [],
+        }}
         onSubmit={onSubmit}
         validationSchema={validationSchema}
       >
-        <View style={{ marginHorizontal: 15 }}>
+        <View style={{ marginHorizontal: 15, marginTop: 10 }}>
+          <AppImagePicker />
           <TextInput
             placeholder={"Title"}
+            customInputContainerStyle={{ width: "100%" }}
             secureTextEntry={false}
             name={"title"}
             keyboardType={"default"}
           />
           <TextInput
             placeholder={"Price"}
+            customInputContainerStyle={{ width: "36%" }}
             secureTextEntry={false}
             name={"price"}
             keyboardType={"number-pad"}
           />
         </View>
+
         <ListPicker items={pickerItem} name={"category"} />
+
         <View style={{ marginHorizontal: 15 }}>
           <TextInput
             placeholder={"Description"}

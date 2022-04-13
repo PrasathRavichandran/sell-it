@@ -103,6 +103,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     marginBottom: 20,
     marginHorizontal: 15,
+    width: "50%",
   },
   textInput: {
     color: Colors.medium,

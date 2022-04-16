@@ -1,82 +1,90 @@
 import React, { useState } from "react";
-import { FlatList, View } from "react-native";
+import { FormikValues } from "formik";
+import * as Yup from "yup";
 
-import FormLayout from "../Layout/FormLayout";
+import SafeAreaLayout from "../Layout/SafeAreaLayout";
 import {
-  Button,
+  AppForm,
   ListPicker,
-  ModalPopup,
-  Text,
+  SubmitButton,
   TextInput,
-  TouchableOpacity,
+  View,
 } from "../components";
-import { Colors } from "../config/Colors";
+import { AppImagePicker } from "../components";
+
+const validationSchema = Yup.object().shape({
+  title: Yup.string().required().label("Title"),
+  category: Yup.string().required().label("Category"),
+  description: Yup.string().label("Description"),
+  price: Yup.string()
+    .matches(/^\d+\.?\d*$/, "Must be a number")
+    .required()
+    .label("Price"),
+  imageItem: Yup.array().required().min(1).label("Product Image"),
+});
 
 const ListEditScreen = () => {
-  const [showModal, setShowModal] = useState(false);
-
   const [pickerItem] = useState([
-    { id: "1", item: "Furniture" },
-    { id: "2", item: "shirt" },
+    { id: "1", title: "Furniture", icon: "table-furniture", color: "#1abc9c" },
+    { id: "2", title: "Cars", icon: "car", color: "#f1c40f" },
+    { id: "3", title: "Cameras", icon: "camera", color: "#27ae60" },
+    { id: "4", title: "Games", icon: "cards", color: "#d35400" },
+    { id: "5", title: "Clothing", icon: "shoe-heel", color: "#2980b9" },
+    { id: "6", title: "Sports", icon: "basketball", color: "#c0392b" },
+    { id: "7", title: "Music", icon: "headphones", color: "#8e44ad" },
+    { id: "8", title: "Books", icon: "book", color: "#e84393" },
+    { id: "9", title: "Others", icon: "rectangle-outline", color: "#2c3e50" },
   ]);
 
-  const onClickCategory = () => {
-    setShowModal(!showModal);
+  const onSubmit = (values: FormikValues) => {
+    console.log("screen ", values);
   };
 
   return (
-    <FormLayout>
-      <TextInput
-        placeholder={"Title"}
-        errorHandler={false}
-        errorMessage={""}
-        secureTextEntry={false}
-        onChangeText={() => {}}
-      />
-      <TextInput
-        placeholder={"Price"}
-        errorHandler={false}
-        errorMessage={""}
-        secureTextEntry={false}
-        onChangeText={() => {}}
-      />
-      <ListPicker
-        placeholder={"Category"}
-        needSufixIcon
-        sufixIcon={"chevron-down"}
-        onPress={onClickCategory}
-      />
-      <TextInput
-        placeholder={"Description"}
-        errorHandler={false}
-        errorMessage={""}
-        secureTextEntry={false}
-        onChangeText={() => {}}
-        multiline
-      />
-      <Button
-        backgroundColor={Colors.tomato}
-        onPress={function (): void {
-          throw new Error("Function not implemented.");
+    <SafeAreaLayout containerStyle={{ margin: 0 }}>
+      <AppForm
+        initialValues={{
+          title: "",
+          price: "",
+          category: "",
+          description: "",
+          imageItem: [],
         }}
+        onSubmit={onSubmit}
+        validationSchema={validationSchema}
       >
-        Post
-      </Button>
-      <ModalPopup visibility={showModal}>
-        <View>
-          <FlatList
-            data={pickerItem}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
-              <Text style={{ margin: 20 }}>{item.item}</Text>
-            )}
+        <View style={{ marginHorizontal: 15, marginTop: 10 }}>
+          <AppImagePicker />
+          <TextInput
+            placeholder={"Title"}
+            customInputContainerStyle={{ width: "100%" }}
+            secureTextEntry={false}
+            name={"title"}
+            keyboardType={"default"}
           />
-          <TouchableOpacity style={{ margin: 20 }} onPress={onClickCategory}>
-            <Text>close</Text>
-          </TouchableOpacity>
+          <TextInput
+            placeholder={"Price"}
+            customInputContainerStyle={{ width: "36%" }}
+            secureTextEntry={false}
+            name={"price"}
+            keyboardType={"number-pad"}
+          />
         </View>
-      </ModalPopup>
-    </FormLayout>
+
+        <ListPicker items={pickerItem} name={"category"} />
+
+        <View style={{ marginHorizontal: 15 }}>
+          <TextInput
+            placeholder={"Description"}
+            secureTextEntry={false}
+            name={"description"}
+            multiline
+            keyboardType={"default"}
+          />
+          <SubmitButton title={"Post"} />
+        </View>
+      </AppForm>
+    </SafeAreaLayout>
   );
 };
 

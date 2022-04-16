@@ -1,7 +1,8 @@
-import { StatusBar } from "expo-status-bar";
-import { View } from "react-native";
+import 'react-native-gesture-handler';
+import {StatusBar} from "expo-status-bar";
+import {View} from "react-native";
 import Card from "./app/components/Card";
-import { Colors } from "./app/config/Colors";
+import {Colors} from "./app/config/Colors";
 
 import InitScreen from "./app/screens/InitScreen";
 import ListEditScreen from "./app/screens/ListEditScreen";
@@ -10,18 +11,19 @@ import MyAccountScreen from "./app/screens/MyAccountScreen";
 import RegisterScreen from "./app/screens/RegisterScreen";
 import ViewProductScreen from "./app/screens/ViewProductScreen";
 import LoginScreen from "./app/screens/LoginScreen";
+import {GestureHandlerRootView} from "react-native-gesture-handler";
 
 export default function App() {
-  return (
-    <View style={{ backgroundColor: Colors.cream, flex: 1 }}>
-      <StatusBar style="auto" backgroundColor={Colors.cream} />
-       {/*<InitScreen />*/}
-       {/*<ViewProductScreen />*/}
-      {/* <ListingDetailsScreen /> */}
-      {/* <MyAccountScreen />*/}
-      {/* <RegisterScreen /> */}
-      {/*<ListEditScreen />*/}
-        <LoginScreen/>
-    </View>
-  );
+    return (
+        <GestureHandlerRootView style={{backgroundColor: Colors.cream, flex: 1}}>
+            <StatusBar style="auto" backgroundColor={Colors.cream}/>
+            {/*<InitScreen />*/}
+            {/*<ViewProductScreen />*/}
+            {/* <ListingDetailsScreen />*/}
+            {/* <MyAccountScreen />*/}
+            {/* <RegisterScreen />*/}
+            <ListEditScreen />
+            {/*<LoginScreen/>*/}
+        </GestureHandlerRootView>
+    );
 }

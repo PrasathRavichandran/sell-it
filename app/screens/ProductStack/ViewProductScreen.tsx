@@ -2,9 +2,9 @@ import React from "react";
 import {StyleSheet} from "react-native";
 import Icons from "@expo/vector-icons/MaterialCommunityIcons";
 
-import {Colors} from "../config/Colors";
-import {Image, TouchableOpacity, View} from "../components";
-import SafeAreaLayout from "../Layout/SafeAreaLayout";
+import {Colors} from "../../config/Colors";
+import {Image, TouchableOpacity, View} from "../../components";
+import SafeAreaLayout from "../../Layout/SafeAreaLayout";
 
 const ViewProductScreen = () => {
     return (
@@ -20,7 +20,7 @@ const ViewProductScreen = () => {
             </View>
             <View style={styles.imageContainer}>
                 <Image
-                    source={require("../images/chair.jpg")}
+                    source={require("../../images/chair.jpg")}
                     style={{width: "100%", height: "100%"}}
                     resizeMode={"contain"}
                 />

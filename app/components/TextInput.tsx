@@ -75,6 +75,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   inputContainer: {
+    width: '100%',
     marginBottom: 20,
   },
   textInput: {

@@ -24,7 +24,7 @@ const ImagePicker = () => {
       });
 
       if (!result.cancelled) {
-        setFieldValue("imageItem", [...values?.imageItem, result]);
+        setFieldValue("imageItem", [...values?.imageItem, result.uri]);
       }
     } catch (error) {
       console.log(error);
@@ -65,7 +65,7 @@ const ImagePicker = () => {
         renderItem={({ item, index }) => (
           <TouchableOpacity onPress={() => onClickImageForDelete(index)}>
             <Image
-              source={{ uri: item.uri }}
+              source={{ uri: item }}
               style={[styles.imagePickerContainer, { marginRight: 10 }]}
             />
           </TouchableOpacity>

@@ -10,3 +10,4 @@ export { default as ModalPopup } from "./ModalPopup";
 export { default as View } from "./View";
 export { default as AppForm } from "./AppForm";
 export { default as AppImagePicker } from "./ImagePicker";
+export { default as ActivityIndicator } from "./ActivityIndicator";

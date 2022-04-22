@@ -1,3 +1,5 @@
+import { ProductProps } from "../screens/ProductStack/FeedScreen";
+
 export type AuthStackParamsList = {
   WelcomeScreen: undefined;
   LoginScreen: undefined;
@@ -6,7 +8,7 @@ export type AuthStackParamsList = {
 
 export type FeedStackParamsList = {
   FeedScreen: undefined;
-  ProductDetailsScreen: undefined;
+  ProductDetailsScreen: undefined | { product: ProductProps };
 };
 
 export type ProfileStackParamsList = {

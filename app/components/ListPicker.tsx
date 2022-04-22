@@ -10,7 +10,7 @@ import View from "./View";
 import TouchableOpacity from "./TouchableOpacity";
 import ModalPopup, { BottomSheetRefProps, SCREEN_HEIGHT } from "./ModalPopup";
 
-type ListItem = {
+export type ListItem = {
   id: string;
   title: string;
   icon: any;
@@ -20,15 +20,20 @@ type ListItem = {
 type ListPickerProps = {
   items: ListItem[];
   name: string;
+  listItem: ListItem;
+  setListItem: any;
 };
 
 type FormikValues = {
   [key: string]: any;
 };
 
-const ListPicker: React.FC<ListPickerProps> = ({ items, name }) => {
-  const [listItem, setListItem] = useState<ListItem>();
-
+const ListPicker: React.FC<ListPickerProps> = ({
+  items,
+  name,
+  listItem,
+  setListItem,
+}) => {
   const { setFieldValue, touched, errors } = useFormikContext<FormikValues>();
 
   const ref = useRef<BottomSheetRefProps>(null);
@@ -67,7 +72,7 @@ const ListPicker: React.FC<ListPickerProps> = ({ items, name }) => {
             <TouchableOpacity
               onPress={() => {
                 setListItem(item);
-                setFieldValue(name, item.title);
+                setFieldValue(name, item);
                 onCloseCategory();
               }}
               style={styles.pickerContainer}
@@ -114,7 +119,7 @@ const styles = StyleSheet.create({
   },
   helpText: {
     marginLeft: 10,
-    color: Colors.danger,
+    color: Colors.tomato,
     marginTop: 6,
   },
   modalHeading: {

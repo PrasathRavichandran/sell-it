@@ -1,21 +1,28 @@
 import React from "react";
 import { StyleSheet } from "react-native";
+import { StackScreenProps } from "@react-navigation/stack";
 
 import { Colors } from "../../config/Colors";
 import { Text, Image, View } from "../../components";
+import { FeedStackParamsList } from "../../navigators/types";
+
 import ViewLayout from "../../Layout/ViewLayout";
 
-const ListingDetailsScreen = () => {
+type Props = StackScreenProps<FeedStackParamsList, "ProductDetailsScreen">;
+
+const ListingDetailsScreen: React.FC<Props> = ({ route }) => {
   return (
     <ViewLayout>
       <Image
-        source={require("../../images/jacket.jpg")}
+        source={{ uri: route.params?.product.images[0].url }}
         resizeMode={"cover"}
         style={styles.viewImage}
       />
       <View style={styles.listContentContainer}>
-        <Text style={styles.listHeading}>Red Jacket for sale!</Text>
-        <Text style={styles.listSubheading}>$300</Text>
+        <Text style={styles.listHeading}>{route.params?.product.title}</Text>
+        <Text style={styles.listSubheading}>
+          ${route.params?.product.price}
+        </Text>
       </View>
 
       <View style={styles.listItemContainer}>

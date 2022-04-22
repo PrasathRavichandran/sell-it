@@ -6,7 +6,7 @@ import { Text, Image, View } from "./index";
 
 type buttonProps = {
   title: string;
-  subtitle: string;
+  subtitle: number;
   image: ImageSourcePropType | any;
 };
 
@@ -22,7 +22,7 @@ const Card: React.FC<buttonProps> = ({ title, subtitle, image }) => {
       </View>
       <View style={styles.cardContentContainer}>
         <Text style={styles.cardHeading}>{title}</Text>
-        <Text style={styles.cardSubheading}>{subtitle}</Text>
+        <Text style={styles.cardSubheading}>{"$" + subtitle}</Text>
       </View>
     </View>
   );
@@ -34,7 +34,6 @@ const styles = StyleSheet.create({
   cardContainer: {
     backgroundColor: Colors.white,
     width: "100%",
-    height: 340,
     borderRadius: 20,
     marginBottom: 20,
   },

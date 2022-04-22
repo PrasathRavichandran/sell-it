@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { FormikValues } from "formik";
 import * as Yup from "yup";
 
 import SafeAreaLayout from "../Layout/SafeAreaLayout";
@@ -11,19 +10,31 @@ import {
   View,
 } from "../components";
 import { AppImagePicker } from "../components";
+import { ListItem } from "../components/ListPicker";
+
+import UploadScreen from "./UploadScreen";
+
+import useLocation from "../hooks/useLocation";
+import { addListings } from "../api/Listings";
+import { ProductProps } from "./ProductStack/FeedScreen";
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required().label("Title"),
-  category: Yup.string().required().label("Category"),
+  category: Yup.object().required().nullable().label("Category"),
   description: Yup.string().label("Description"),
   price: Yup.string()
     .matches(/^\d+\.?\d*$/, "Must be a number")
     .required()
     .label("Price"),
-  imageItem: Yup.array().required().min(1).label("Product Image"),
+  imageItem: Yup.array().required().min(1, "Please select atleast one image."),
 });
 
 const ListEditScreen = () => {
+  const { location } = useLocation();
+  const [uploadVisible, setUploadVisible] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [listItem, setListItem] = useState<ListItem>();
+
   const [pickerItem] = useState([
     { id: "1", title: "Furniture", icon: "table-furniture", color: "#1abc9c" },
     { id: "2", title: "Cars", icon: "car", color: "#f1c40f" },
@@ -36,12 +47,34 @@ const ListEditScreen = () => {
     { id: "9", title: "Others", icon: "rectangle-outline", color: "#2c3e50" },
   ]);
 
-  const onSubmit = (values: FormikValues) => {
-    console.log("screen ", values);
+  const onSubmit = async (values: ProductProps | any, { resetForm }: any) => {
+    setProgress(0);
+    setUploadVisible(true);
+    const response = await addListings(
+      {
+        ...values,
+        location,
+        categoryId: values.category.id,
+        images: values.imageItem,
+      },
+      (progress: any) => setProgress(progress)
+    );
+
+    if (!response.ok) {
+      setUploadVisible(false);
+      return alert("Could not save the listing");
+    }
+    resetForm();
+    setListItem(null);
   };
 
   return (
     <SafeAreaLayout containerStyle={{ margin: 0 }}>
+      <UploadScreen
+        visible={uploadVisible}
+        progress={progress}
+        onDone={() => setUploadVisible(false)}
+      />
       <AppForm
         initialValues={{
           title: "",
@@ -71,7 +104,12 @@ const ListEditScreen = () => {
           />
         </View>
 
-        <ListPicker items={pickerItem} name={"category"} />
+        <ListPicker
+          items={pickerItem}
+          name={"category"}
+          listItem={listItem}
+          setListItem={setListItem}
+        />
 
         <View style={{ marginHorizontal: 15 }}>
           <TextInput

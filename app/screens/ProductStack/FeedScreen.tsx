@@ -1,51 +1,91 @@
-import { FlatList, StyleSheet, Text } from "react-native";
-import React, { useState } from "react";
+import { FlatList, StyleSheet } from "react-native";
+import React, { useEffect } from "react";
+import { StackScreenProps } from "@react-navigation/stack";
+
+import { Colors } from "../../config/Colors";
 
 import Card from "../../components/Card";
-import { TouchableOpacity, View } from "../../components";
-import { Colors } from "../../config/Colors";
-import { StackScreenProps } from "@react-navigation/stack";
+import {
+  ActivityIndicator,
+  Button,
+  Text,
+  TouchableOpacity,
+  View,
+} from "../../components";
+import { ListItem } from "../../components/ListPicker";
 import { FeedStackParamsList } from "../../navigators/types";
+import SafeAreaLayout from "../../Layout/SafeAreaLayout";
+
+import { getListings } from "../../api/Listings";
+import useApi from "../../hooks/useApi";
 
 type Props = StackScreenProps<FeedStackParamsList, "FeedScreen">;
 
+type ImageProps = {
+  url: string;
+  thumbnailUrl: string;
+};
+
+export type Locations = {
+  latitude: number;
+  longitude: number;
+};
+
+export type ProductProps = {
+  id: string;
+  title: string;
+  images: ImageProps[];
+  price: number;
+  categoryId: ListItem;
+  userId: number;
+  location: Locations;
+  description: string;
+};
+
 const FeedScreen: React.FC<Props> = ({ navigation }) => {
-  const [products] = useState([
-    {
-      id: "1",
-      title: "Couch For sales",
-      subtitle: "$300",
-      imageUri:
-        "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80",
-    },
-    {
-      id: "2",
-      title: "Furnitures in great condition",
-      subtitle: "$250",
-      imageUri:
-        "https://images.unsplash.com/photo-1616464916356-3a777b2b60b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80",
-    },
-  ]);
+  const {
+    data: products,
+    loading,
+    error,
+    request: loadListings,
+  } = useApi(getListings);
+
+  useEffect(() => {
+    loadListings();
+  }, []);
+
   return (
-    <View style={styles.container}>
+    <SafeAreaLayout containerStyle={styles.container}>
+      {error && (
+        <View>
+          <Text style={styles.errorMessageText}>
+            Could't retrive listings right now!
+          </Text>
+          <Button backgroundColor={Colors.tomato} onPress={loadListings}>
+            Retry
+          </Button>
+        </View>
+      )}
+      <ActivityIndicator visible={loading} />
       <FlatList
         data={products}
         keyExtractor={(item) => item.id}
-        contentContainerStyle={{ paddingTop: 50 }}
         showsVerticalScrollIndicator={false}
         renderItem={({ item }) => (
           <TouchableOpacity
-            onPress={() => navigation.navigate("ProductDetailsScreen")}
+            onPress={() =>
+              navigation.navigate("ProductDetailsScreen", { product: item })
+            }
           >
             <Card
               title={item.title}
-              subtitle={item.subtitle}
-              image={item.imageUri}
+              subtitle={item.price}
+              image={item.images[0]?.url}
             />
           </TouchableOpacity>
         )}
       />
-    </View>
+    </SafeAreaLayout>
   );
 };
 
@@ -57,5 +97,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     backgroundColor: Colors.cream,
     flex: 1,
+  },
+  errorMessageText: {
+    fontSize: 16,
+    fontWeight: "500",
+    marginBottom: 20,
+    textAlign: "center",
   },
 });

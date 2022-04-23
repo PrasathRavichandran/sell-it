@@ -1,6 +1,7 @@
 import { FlatList, StyleSheet } from "react-native";
 import React, { useEffect } from "react";
 import { StackScreenProps } from "@react-navigation/stack";
+import constants from "expo-constants";
 
 import { Colors } from "../../config/Colors";
 
@@ -55,7 +56,7 @@ const FeedScreen: React.FC<Props> = ({ navigation }) => {
   }, []);
 
   return (
-    <SafeAreaLayout containerStyle={styles.container}>
+    <View style={styles.container}>
       {error && (
         <View>
           <Text style={styles.errorMessageText}>
@@ -71,6 +72,7 @@ const FeedScreen: React.FC<Props> = ({ navigation }) => {
         data={products}
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingTop: constants.statusBarHeight }}
         renderItem={({ item }) => (
           <TouchableOpacity
             onPress={() =>
@@ -81,11 +83,12 @@ const FeedScreen: React.FC<Props> = ({ navigation }) => {
               title={item.title}
               subtitle={item.price}
               image={item.images[0]?.url}
+              thumbnailUrl={item?.images[0]?.thumbnailUrl}
             />
           </TouchableOpacity>
         )}
       />
-    </SafeAreaLayout>
+    </View>
   );
 };
 

@@ -1,23 +1,31 @@
 import { ImageSourcePropType, StyleSheet } from "react-native";
 import React from "react";
+import { Image } from "react-native-expo-image-cache";
 
 import { Colors } from "../config/Colors";
-import { Text, Image, View } from "./index";
+import { Text, View } from "./index";
 
 type buttonProps = {
   title: string;
   subtitle: number;
   image: ImageSourcePropType | any;
+  thumbnailUrl: any;
 };
 
-const Card: React.FC<buttonProps> = ({ title, subtitle, image }) => {
+const Card: React.FC<buttonProps> = ({
+  title,
+  subtitle,
+  image,
+  thumbnailUrl,
+}) => {
   return (
     <View style={styles.cardContainer}>
       <View style={styles.cardImageContainer}>
         <Image
-          source={{ uri: image }}
-          resizeMode={"cover"}
+          uri={image}
           style={styles.cardImage}
+          preview={{ uri: thumbnailUrl }}
+          tint="light"
         />
       </View>
       <View style={styles.cardContentContainer}>
@@ -40,12 +48,14 @@ const styles = StyleSheet.create({
   cardImageContainer: {
     width: "100%",
     height: 250,
+    overflow: "hidden",
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
   },
   cardImage: {
     width: "100%",
     height: "100%",
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+    resizeMode: "cover",
   },
   cardContentContainer: {
     paddingVertical: 14,

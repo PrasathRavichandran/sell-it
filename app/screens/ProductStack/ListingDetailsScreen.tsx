@@ -1,9 +1,10 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
+import { Image } from "react-native-expo-image-cache";
 
 import { Colors } from "../../config/Colors";
-import { Text, Image, View } from "../../components";
+import { Text, View, Image as AppImage } from "../../components";
 import { FeedStackParamsList } from "../../navigators/types";
 
 import ViewLayout from "../../Layout/ViewLayout";
@@ -14,8 +15,11 @@ const ListingDetailsScreen: React.FC<Props> = ({ route }) => {
   return (
     <ViewLayout>
       <Image
-        source={{ uri: route.params?.product.images[0].url }}
-        resizeMode={"cover"}
+        uri={route.params?.product.images[0].url as string}
+        preview={{
+          uri: route?.params?.product?.images[0]?.thumbnailUrl as string,
+        }}
+        tint={"light"}
         style={styles.viewImage}
       />
       <View style={styles.listContentContainer}>
@@ -26,7 +30,7 @@ const ListingDetailsScreen: React.FC<Props> = ({ route }) => {
       </View>
 
       <View style={styles.listItemContainer}>
-        <Image
+        <AppImage
           source={require("../../images/mosh.jpg")}
           resizeMode={"cover"}
           style={styles.listImage}
@@ -46,6 +50,7 @@ const styles = StyleSheet.create({
   viewImage: {
     width: "100%",
     height: 360,
+    resizeMode: "cover",
   },
   listContentContainer: {
     paddingVertical: 14,
